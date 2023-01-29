@@ -6,20 +6,35 @@
 # a) Добавьте игру против бота
 # b) Подумайте как наделить бота ""интеллектом""
 
-def game2021 (x):
+def gamebot (x):
     print (x)
-def gamebot (x,y):
-    print (x,y)
+
+def game2021 (x, z):
+    y = int (input (f'Ход игрока {x[1]}: {z[x[1]]} -'))
+    x[0] = x[0] - y
+    return x
 
 # Выбор игрок/бот 
-gamer1name = input ('Введите имя игрока №1 - ')
-gamer2name = input ('Введите имя игрока №2 или слово БОТ - ')
-game1 = game2021
-if gamer2name == 'БОТ':
+gamer = [input ('Введите имя игрока №1 - ')]
+gamer.append (input ('Введите имя игрока №2 или слово БОТ - '))
+print (gamer)
+result = [2021, 1]
+if gamer[1] == 'БОТ':
     game2 = gamebot
 else:
     game2 = game2021
-
+while result[0]>0:
+    if result[1]%2 == 0:
+        result = game2(result, gamer)
+        result[1] = 1
+    else: 
+        result = game2021(result, gamer)
+        result[1] = 2   
+if result[1]%2 == 0: 
+    result[1] = 1
+else: 
+    result[1] = 2
+print (f'Победил игрок {result[1]}: {gamer[result[1]]}')
 
 # Выбор количества конфет игрока №1/2
 # Условие выхода из игры и определение победителя
