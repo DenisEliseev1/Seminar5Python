@@ -6,18 +6,28 @@
 # a) Добавьте игру против бота
 # b) Подумайте как наделить бота ""интеллектом""
 
-def gamebot (x):
-    print (x)
-
+from random import randint
+def gamebot (x, z):
+    if 57>x[0]>29:
+        y = x[0]-29
+    elif x[0]<=28:
+        y = x[0]    
+    else:    
+        y = randint (1, 29)
+    print (f'Ход игрока {x[1]}: {z[x[1]-1]} - {y}')
+    x[0] = x[0] - y
+    return x
 def game2021 (x, z):
-    y = int (input (f'Ход игрока {x[1]}: {z[x[1]]} -'))
+    y = int (input (f'Ход игрока {x[1]}: {z[x[1]-1]} -'))
+    if y>28 or y<1:
+        print ('Введите число от 1 до 28')
+        x = game2021 (x, z)
     x[0] = x[0] - y
     return x
 
-# Выбор игрок/бот 
+ 
 gamer = [input ('Введите имя игрока №1 - ')]
 gamer.append (input ('Введите имя игрока №2 или слово БОТ - '))
-print (gamer)
 result = [2021, 1]
 if gamer[1] == 'БОТ':
     game2 = gamebot
@@ -30,12 +40,9 @@ while result[0]>0:
     else: 
         result = game2021(result, gamer)
         result[1] = 2   
+    print ('остаток - ', result[0])
 if result[1]%2 == 0: 
     result[1] = 1
 else: 
     result[1] = 2
-print (f'Победил игрок {result[1]}: {gamer[result[1]]}')
-
-# Выбор количества конфет игрока №1/2
-# Условие выхода из игры и определение победителя
-# Прописать логику бота
+print (f'Победил игрок {result[1]}: {gamer[result[1]-1]}')
